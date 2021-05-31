@@ -13,8 +13,8 @@ Nome completo dos integrantes do grupo
 
 int  main(){
 
-    int option = 0;
-    char palavraChave[15], tema[15];
+    int option = 0, acertos = 0, erros = 0;
+    char palavraChave[15], tema[15], resposta[15], tentativa = ' ';
     while(option != 4){
         system("cls");
         switch(option){
@@ -30,9 +30,34 @@ int  main(){
             option = 0;
             break;
         case 2:
-            printf("\n========================================");
-            printf("\n----------- ADVINHAR PALAVRA -----------");
-            printf("\n========================================");
+            do {
+                system("cls"); //esse comando limpa o console
+
+                printf("\n========================================");
+                printf("\n----------- ADVINHAR PALAVRA -----------");
+                printf("\n========================================");
+
+                printf("\n");
+                for(int i = 0; i < strlen(palavraChave); i++){
+
+                    if(tentativa == ' '){
+                        resposta[i] = '-';
+                        continue;
+                    }
+
+                    if(tentativa == palavraChave[i]){
+                        resposta[i] = palavraChave[i];
+                        acertos++;
+                    }else if(resposta != '-'){
+                        continue;
+                    }else{
+                        resposta[i] = '-';
+                    }
+                }
+                printf("\n%s ", resposta);
+                scanf("%c", &tentativa);
+                fflush(stdin);
+            }while(erros < 6);
             printf("\n[0] - Voltar. ");
             scanf("%d", &option);
             break;
