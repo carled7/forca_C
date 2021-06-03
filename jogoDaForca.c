@@ -20,8 +20,8 @@ int  main(){
     int option = 1, acertos = 0, erros = 0, cadastrado = 0, i, vitoria = 0, errototal = 0, derrotas = 0;
     char palavraChave[30], tema[30], resposta[15], tentativa = ' ', verifica;
     palavraChave[0] = '\0';
-    for(i = 0; i < 15; i++){	                
-        resposta[i] = ' ';	
+    for(i = 0; i < 15; i++){
+        resposta[i] = ' ';
 	}
     while(option != 0){
         option = menu();
@@ -50,7 +50,7 @@ int  main(){
                         printf("%s\n", palavraChave);
                     }
 
-                    printf("\nA palavra digitada foi: '%s', correto? 'S' para sim ou 'N' para nao: ", palavraChave);
+                    printf("\nA palavra digitada foi: '%s', \ncorreto? 'S' para sim ou 'N' para nao: ", palavraChave);
                     scanf("%c", &verifica);
                     fflush(stdin);
                 } while(!((verifica == 'S') || (verifica == 's') || (verifica == 'N') || (verifica == 'n')));
@@ -62,17 +62,18 @@ int  main(){
                 if(verifica != '\0'){
                     cabecalhoCadastro();
                     printf("%s\n", palavraChave);
+                    strupr(palavraChave);
                 }
                 printf("\nDigite o tema: ");
                 scanf("%[^\n]", tema);
                 fflush(stdin);
-
+                strupr(tema);
                 do{
                     if(verifica != '\0'){
                         cabecalhoCadastro();
                         printf("%s\n\nDigite o tema: %s\n", palavraChave, tema);
                     }
-                    printf("\nO tema digitado foi: '%s', correto? 'S' para sim ou 'N' para nao: ", tema);
+                    printf("\nO tema digitado foi: '%s', \ncorreto? 'S' para sim ou 'N' para nao: ", tema);
                     scanf("%c", &verifica);
                     fflush(stdin);
                 } while(!((verifica == 'S') || (verifica == 's') || (verifica == 'N') || (verifica == 'n')));
@@ -89,17 +90,17 @@ int  main(){
                     printf(  "========================================");
                     printf("\n----------- ADVINHAR PALAVRA -----------");
                     printf("\n========================================");
-					
+
 					printf("\nA dica eh: %s", tema);
 					printf("\nA palavra possui %d letras\n", cadastrado);
-					
+
                     for(i = 0; i < cadastrado; i++){
-                    	
+
                         if(tentativa == ' '){
                             resposta[i] = '-';
                             continue;
                         }
-                        
+
 
                         if(tentativa == palavraChave[i]){
                             resposta[i] = palavraChave[i];
@@ -107,30 +108,31 @@ int  main(){
                         }
                         else{
                         	erros++;
+                        	;
 						}
-                        
+
 						if(resposta[i] != '-'){
-							
+
                             continue;
                         }else{
                             resposta[i] = '-';
-                			            
+
                         }
                     }
-                    
+                    atualizaForca(erros);
                     printf("\n%s ", resposta);
                     if(acertos == cadastrado){
-					                    	
+
                     	printf("\nParabens voce acertou a palavra!");
                     	acertos = 0;
                     	vitoria++;
                     	tentativa = ' ';
                     	break;
-                    	
+
 					}
-                									
-					if(erros == cadastrado){				
-						
+
+					if(erros == cadastrado){
+
 						errototal++;
 						if(errototal == 1){
 							printf("O");
@@ -141,40 +143,40 @@ int  main(){
 						else if(errototal == 3){
 							//printf("");
 						}
-						
+
 						if(errototal == 6){
-						                   		
+
                     		printf("Voce morreu!");
                     		derrotas++;
                     		break;
 						}
-						
-					}       
-                                     
+
+					}
+
 					scanf("%c", &tentativa);
 					fflush(stdin);
                     erros = 0;
-                    
+
                 } while(errototal < 6);
-                for(i = 0; i < 15; i++){	                
-        			resposta[i] = ' ';	
+                for(i = 0; i < 15; i++){
+        			resposta[i] = ' ';
 				}
-                
+
                 errototal = 0;
                 tentativa = ' ';
                 printf("\n[1] - Voltar. ");
                 scanf("%d", &option);
 
-                
+
                 cadastrado = 0;
-                
+
             }
-            //Verifica se tem alguma palavra cadastrado se sim o usuÃ¡rio pode jogar
+            //Verifica se tem alguma palavra cadastrado se sim o usuário pode jogar
 
             else{
                 printf("Cadastre uma palavra primeiro!");
             }
-            //Se nÃ£o tem nenhuma palavra cadastrada pede ao usuÃ¡rio que cadastre uma
+            //Se não tem nenhuma palavra cadastrada pede ao usuário que cadastre uma
         }
         //Quando (option == 2) realiza o jogo com palavra cadastrada
 
@@ -186,7 +188,7 @@ int  main(){
                 printf("\nVoce perdeu %d vezes.", derrotas);
                 printf("\n[1] - Voltar. ");
                 scanf("%d", &option);
-                
+
         }
         //Quando (option == 3) confere as vitorias e derrotas do jogador
     }
@@ -220,5 +222,31 @@ void cabecalhoCadastro(){
     printf(  "========================================");
     printf("\n---------- CADASTRAR PALAVRA -----------");
     printf("\n========================================");
-    printf("\nDigite aqui a palavra ou 0 (zero) para retornar ao Menu: ");
+    printf("\nDigite aqui a palavra ou 0 (zero) \npara retornar ao Menu: ");
+}
+
+void atualizaForca(int erros){
+    switch (erros){
+    case 1:
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    case 4:
+        break;
+    case 5:
+        break;
+    case 6:
+        break;
+    default:
+        printf("\n  _______");
+        printf("\n  |/    |");
+        printf("\n  |     O");
+        printf("\n  |    /|\\");
+        printf("\n  |   _/|\\_");
+        printf("\n  |");
+        printf("\n_/|\\_");
+
+    }
 }
