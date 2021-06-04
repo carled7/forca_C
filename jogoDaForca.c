@@ -84,7 +84,7 @@ int  main(){
 
         else if((option == 2)){
             if(cadastrado != 0){
-                do{
+                while(errototal < 6){
                     system("cls"); //esse comando limpa o console
 
                     printf(  "========================================");
@@ -108,7 +108,6 @@ int  main(){
                         }
                         else{
                         	erros++;
-                        	;
 						}
 
 						if(resposta[i] != '-'){
@@ -119,7 +118,6 @@ int  main(){
 
                         }
                     }
-                    atualizaForca(erros);
                     printf("\n%s ", resposta);
                     if(acertos == cadastrado){
 
@@ -134,36 +132,29 @@ int  main(){
 					if(erros == cadastrado){
 
 						errototal++;
-						if(errototal == 1){
-							printf("O");
-						}
-						else if(errototal == 2){
-							printf("\n");
-						}
-						else if(errototal == 3){
-							//printf("");
-						}
 
-						if(errototal == 6){
-
-                    		printf("Voce morreu!");
-                    		derrotas++;
-                    		break;
-						}
 
 					}
+                    atualizaForca(errototal);
+                    if(errototal == 6){
+                        continue;
+                    }
 
-					scanf("%c", &tentativa);
+					scanf("\n%c", &tentativa);
 					fflush(stdin);
                     erros = 0;
 
-                } while(errototal < 6);
+                }
+
                 for(i = 0; i < 15; i++){
         			resposta[i] = ' ';
 				}
 
                 errototal = 0;
                 tentativa = ' ';
+                printf("\n");
+                printf("\nGAME OVER");
+                printf("\n");
                 printf("\n[1] - Voltar. ");
                 scanf("%d", &option);
 
@@ -225,26 +216,68 @@ void cabecalhoCadastro(){
     printf("\nDigite aqui a palavra ou 0 (zero) \npara retornar ao Menu: ");
 }
 
-void atualizaForca(int erros){
-    switch (erros){
+void atualizaForca(int err){
+    switch (err){
     case 1:
+        printf("\n  _______");
+        printf("\n  |/    |");
+        printf("\n  |     O");
+        printf("\n  |");
+        printf("\n  |");
+        printf("\n  |");
+        printf("\n_/|\\_");
         break;
     case 2:
+        printf("\n  _______");
+        printf("\n  |/    |");
+        printf("\n  |     O");
+        printf("\n  |     |");
+        printf("\n  |");
+        printf("\n  |");
+        printf("\n_/|\\_");
         break;
     case 3:
+        printf("\n  _______");
+        printf("\n  |/    |");
+        printf("\n  |     O");
+        printf("\n  |     |\\");
+        printf("\n  |");
+        printf("\n  |");
+        printf("\n_/|\\_");
         break;
     case 4:
+        printf("\n  _______");
+        printf("\n  |/    |");
+        printf("\n  |     O");
+        printf("\n  |    /|\\");
+        printf("\n  |");
+        printf("\n  |");
+        printf("\n_/|\\_");
         break;
     case 5:
+        printf("\n  _______");
+        printf("\n  |/    |");
+        printf("\n  |     O");
+        printf("\n  |    /|\\");
+        printf("\n  |     |\\_");
+        printf("\n  |");
+        printf("\n_/|\\_");
         break;
     case 6:
-        break;
-    default:
         printf("\n  _______");
         printf("\n  |/    |");
         printf("\n  |     O");
         printf("\n  |    /|\\");
         printf("\n  |   _/|\\_");
+        printf("\n  |");
+        printf("\n_/|\\_");
+        break;
+    default:
+        printf("\n  _______");
+        printf("\n  |/    |");
+        printf("\n  |");
+        printf("\n  |");
+        printf("\n  |");
         printf("\n  |");
         printf("\n_/|\\_");
 
