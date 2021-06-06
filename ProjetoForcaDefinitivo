@@ -14,14 +14,15 @@ Nome completo dos integrantes do grupo
 int menu();
 
 void cabecalhoCadastro();
+void atualizaForca();
 
 int  main(){
 
-    int option = 1, acertos = 0, erros = 0, cadastrado = 0, i, vitoria = 0, errototal = 0, derrotas = 0;
-    char palavraChave[30], tema[30], resposta[15], tentativa = ' ', verifica;
+    int option = 1, acertos = 0, erros = 0, cadastrado = 0, i, vitoria = 0, errototal = 0, derrotas = 0, j = 0;
+    char palavraChave[30], tema[30], resposta[30], tentativa = ' ', verifica, tentativasAnteriores[26];
     palavraChave[0] = '\0';
     for(i = 0; i < 15; i++){
-        resposta[i] = ' ';
+        resposta[i] = '\0';
 	}
     while(option != 0){
         option = menu();
@@ -29,6 +30,7 @@ int  main(){
         if(option == 0){
             printf("\nPrograma encerrado. Pressione qualquer tecla!");
             scanf("%c", &tentativa);
+            fflush(stdin);
             return 0;
         }
 
@@ -95,8 +97,8 @@ int  main(){
 					printf("\nA palavra possui %d letras\n", cadastrado);
 
                     for(i = 0; i < cadastrado; i++){
-
-                        if(tentativa == ' '){
+                        
+                         if(tentativa == ' '){
                             resposta[i] = '-';
                             continue;
                         }
@@ -132,7 +134,9 @@ int  main(){
 					if(erros == cadastrado){
 
 						errototal++;
-
+						if(errototal >= 6){
+							derrotas++;
+						}
 
 					}
                     atualizaForca(errototal);
@@ -140,16 +144,32 @@ int  main(){
                         continue;
                     }
 
-					scanf("\n%c", &tentativa);
+					tentativasAnteriores[j] = tentativa;  
+					j++;           
+					scanf("%c", &tentativa);
 					fflush(stdin);
+					
+					for(i = 0; i < 26; i++)
+					{
+						if(tentativasAnteriores[i] == tentativa){
+							while(tentativasAnteriores[i] == tentativa){
+								printf("\nEsta letra ja foi digitada. Digite outra letra: ");
+								scanf("%c", &tentativa);
+								fflush(stdin);
+								i = 0;
+							}
+						}
+						
+					}
                     erros = 0;
 
                 }
 
-                for(i = 0; i < 15; i++){
-        			resposta[i] = ' ';
+                for(i = 0; i < 30; i++){
+        			resposta[i] = palavraChave[i] = '\0';
 				}
-
+				acertos = 0;
+				erros = 0;
                 errototal = 0;
                 tentativa = ' ';
                 printf("\n");
@@ -157,10 +177,14 @@ int  main(){
                 printf("\n");
                 printf("\n[1] - Voltar. ");
                 scanf("%d", &option);
+                fflush(stdin);
+                for(i = 0; i < 26; i++){
+                	tentativasAnteriores[i] = ' ';
+				}
 
 
                 cadastrado = 0;
-
+				
             }
             //Verifica se tem alguma palavra cadastrado se sim o usuário pode jogar
 
@@ -179,6 +203,7 @@ int  main(){
                 printf("\nVoce perdeu %d vezes.", derrotas);
                 printf("\n[1] - Voltar. ");
                 scanf("%d", &option);
+                fflush(stdin);
 
         }
         //Quando (option == 3) confere as vitorias e derrotas do jogador
